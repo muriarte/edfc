@@ -12,7 +12,6 @@ namespace Inotech.Edfc
         public void Initialize() {
         }
 
-
         public Catalogos.CatEstudiantesPresenter CreateCatEstudiantesPresenter(Catalogos.ICatEstudiantesView view) {
             return new Catalogos.CatEstudiantesPresenter(view);
         }

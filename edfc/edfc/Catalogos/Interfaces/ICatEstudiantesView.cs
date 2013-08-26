@@ -11,8 +11,7 @@ namespace Inotech.Edfc.Catalogos
         void Initialize(Catalogos.CatEstudiantesPresenter presenter);
         void SetEditionMode(EEditionMode editionMode);
         void DisplayItemFields(System.Collections.Generic.Dictionary<string, string> fields);
-        void Validate();
-
-        void ShowMessageBox(string tcMess
+        void ShowMessageBox(string message, string title);
+        void ShowMessageBox(string message, string title, eMessageBoxButtons buttons);
     }
 }

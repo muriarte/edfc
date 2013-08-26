@@ -11,4 +11,13 @@ namespace Inotech.Edfc.Catalogos
         Alta = 2,
         Modificacion = 3
     };
+
+    public enum eMessageBoxButtons
+    {
+        OkOnly=1,
+        OkCancel=2,
+        YesNo=3,
+        YesNoCancel=4
+    }
+
 }

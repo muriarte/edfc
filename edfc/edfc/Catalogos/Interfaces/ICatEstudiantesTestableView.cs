@@ -13,5 +13,6 @@ namespace Inotech.Edfc.Catalogos
         void ClickOnNewButton();
         void ClickOnSaveButton();
         void ClickOnCloseButton();
+        void Validate();
     }
 }

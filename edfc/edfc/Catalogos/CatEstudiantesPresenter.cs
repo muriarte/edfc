@@ -18,7 +18,7 @@ namespace Inotech.Edfc.Catalogos
         }
 
         public void SaveCommand() {
-
+            _view.SetEditionMode(EEditionMode.Navegacion);
         }
 
         public void CloseCommand() {

@@ -43,6 +43,8 @@ namespace Inotech.Edfc.Test.EndToEnd
             view.SetEditionMode(Arg.Do<EEditionMode>(x => currentEditionMode = x));
             testableView.EditionMode.Returns(x => currentEditionMode);
 
+            int messageboxHasBeenShowed = 0;
+            view.When(x => x.ShowMessageBox(Arg.Any<string>(), Arg.Any<string>())).Do(x => messageboxHasBeenShowed++);
             // Inicializa la vista y el presentador
             view.Initialize(presenter);
 
@@ -52,10 +54,10 @@ namespace Inotech.Edfc.Test.EndToEnd
 
             //Simula el click sobre el boton "Nuevo"
             testableView.ClickOnNewButton();
-
             //La vista debe estar en modo de alta
+            Assert.AreEqual(messageboxHasBeenShowed, 0);
             Assert.AreEqual(Catalogos.EEditionMode.Alta, currentEditionMode);
-            Assert.AreEqual(Catalogos.EEditionMode.Alta, testableView.EditionMode ); 
+            Assert.AreEqual(Catalogos.EEditionMode.Alta, testableView.EditionMode );
 
             //Despliega datos de cliente simulando que el usuario ha capturado datos
             view.DisplayItemFields(Arg.Do<Dictionary<string,string>>(x => fields = x));
@@ -77,16 +79,22 @@ namespace Inotech.Edfc.Test.EndToEnd
             Assert.AreEqual(fieldsIn["Apellido"], fieldsOut["Apellido"]);
             Assert.AreEqual(fieldsIn["Nombre"], fieldsOut["Nombre"]);
             Assert.AreEqual(fieldsIn["Nacimiento"], fieldsOut["Nacimiento"]);
-
             //No debe haber errores de validación
-            view.Validate();
+            testableView.Validate();
+            Assert.AreEqual(messageboxHasBeenShowed, 0);
             Assert.AreEqual(0, testableView.ValidationErrors.Count);
 
             //Simulamos el click sobre el botón grabar
             testableView.ClickOnSaveButton();
+            
+            Assert.AreEqual(messageboxHasBeenShowed, 0);
+            Assert.AreEqual(Catalogos.EEditionMode.Navegacion, currentEditionMode);
+            Assert.AreEqual(Catalogos.EEditionMode.Navegacion, testableView.EditionMode); 
 
             //Cerramos el modulo de captura de estudiantes
             testableView.ClickOnCloseButton();
+            
+            Assert.AreEqual(messageboxHasBeenShowed, 0);
 
             //Cerramos la aplicacion
             myApp.End();
